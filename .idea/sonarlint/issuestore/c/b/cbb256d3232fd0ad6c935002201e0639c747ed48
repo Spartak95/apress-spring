@@ -1,0 +1,15 @@
+
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Ô”¡Îûÿÿÿÿ
+C
+java:S1172"-Remove this unused method parameter "fooOne".(öêœŸ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(ŞÏÄÃşÿÿÿÿ
+S
+java:S1172"6Remove these unused method parameters "fooOne", "bar".(—»íû8şˆØ³©0
+N	java:S106"9Replace this use of System.out or System.err by a logger.(Òšµ
+S	java:S106""9Replace this use of System.out or System.err by a logger.(²¾‚øÿÿÿÿ
+N	java:S106)"9Replace this use of System.out or System.err by a logger.(»¿ìÆ
+S	java:S106/"9Replace this use of System.out or System.err by a logger.(İâ¿ÿøÿÿÿÿ
+K
+java:S18544"5Remove this useless assignment to local variable "t".(ò“‘¹
+<
+java:S14814"&Remove this unused "t" local variable.(ò“‘¹

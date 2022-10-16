@@ -7,6 +7,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * AOP introduction.
+ */
 public class IsModifiedMixin extends DelegatingIntroductionInterceptor implements IsModified {
     private boolean isModified = false;
 

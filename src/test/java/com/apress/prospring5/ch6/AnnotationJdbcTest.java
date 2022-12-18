@@ -29,6 +29,7 @@ class AnnotationJdbcTest {
     private JdbcSingerDao7 jdbcSingerDao7;
     private JdbcSingerDao8 jdbcSingerDao8;
 
+
     @BeforeEach
     void setUp() {
         ctx = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -42,6 +43,7 @@ class AnnotationJdbcTest {
         assertNotNull(jdbcSingerDao6);
         assertNotNull(jdbcSingerDao7);
         assertNotNull(jdbcSingerDao8);
+
     }
 
     @AfterEach

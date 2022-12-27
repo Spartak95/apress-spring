@@ -3,6 +3,8 @@ package com.apress.prospring5.ch6.config;
 import com.apress.prospring5.ch6.dao.JdbcSingerDao4;
 import com.apress.prospring5.ch6.dao.JdbcSingerDao5;
 import com.apress.prospring5.ch6.dao.JdbcSingerDao6;
+import com.apress.prospring5.ch6.dao.JdbcSingerDao7;
+import com.apress.prospring5.ch6.dao.JdbcSingerDao8;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -46,5 +48,19 @@ public class AppConfig {
         JdbcSingerDao6 jdbcSingerDao6 = new JdbcSingerDao6();
         jdbcSingerDao6.setDataSource(dataSource());
         return jdbcSingerDao6;
+    }
+
+    @Bean
+    public JdbcSingerDao7 jdbcSingerDao7() {
+        JdbcSingerDao7 jdbcSingerDao7 = new JdbcSingerDao7();
+        jdbcSingerDao7.setDataSource(dataSource());
+        return jdbcSingerDao7;
+    }
+
+    @Bean
+    public JdbcSingerDao8 jdbcSingerDao8() {
+        JdbcSingerDao8 jdbcSingerDao8 = new JdbcSingerDao8();
+        jdbcSingerDao8.setDataSource(dataSource());
+        return jdbcSingerDao8;
     }
 }

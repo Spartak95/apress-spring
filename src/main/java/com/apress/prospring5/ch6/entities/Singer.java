@@ -1,7 +1,5 @@
 package com.apress.prospring5.ch6.entities;
 
-import com.apress.prospring5.ch6.MySQLErrorCodesTranslator;
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;

@@ -1,15 +1,14 @@
 package com.apress.prospring5.ch7.dao;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import com.apress.prospring5.ch7.entities.Singer;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Transactional
 @Repository("singerDao")
@@ -33,22 +32,30 @@ public class SingerDaoImpl implements SingerDao {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Singer> findAllWithAlbum() {
-        return null;
+        return sessionFactory.getCurrentSession().getNamedQuery("Singer.findAllWithAlbum").list();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Singer findById(Long id) {
-        return null;
+        return (Singer) sessionFactory.getCurrentSession()
+                .getNamedQuery("Singer.findById")
+                .setParameter("id", id)
+                .uniqueResult();
     }
 
     @Override
     public Singer save(Singer singer) {
-        return null;
+        sessionFactory.getCurrentSession().saveOrUpdate(singer);
+        logger.info("Singer saved with id: " + singer.getId());
+        return singer;
     }
 
     @Override
     public void delete(Singer singer) {
-
+        sessionFactory.getCurrentSession().delete(singer);
+        logger.info("Singer deleted with id: " + singer.getId());
     }
 }

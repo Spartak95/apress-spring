@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +23,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "singer")
+@NamedQueries({@NamedQuery(name = "Singer.findAllWithAlbum", query = "select distinct s from Singer s " +
+        "left join fetch s.albums a left join fetch s.instruments i"),
+        @NamedQuery(name = "Singer.findById", query = "select distinct s from Singer s " +
+                "left join fetch s.albums a left join fetch s.instruments i where s.id=:id")})
 public class Singer implements Serializable {
     private Long id;
     private String firstName;
@@ -32,7 +38,7 @@ public class Singer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name =  "ID")
+    @Column(name = "ID")
     public Long getId() {
         return id;
     }
@@ -79,7 +85,9 @@ public class Singer implements Serializable {
         this.albums = albums;
     }
 
-    @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "singer"
+            , cascade = CascadeType.ALL, orphanRemoval = true
+    )
     public Set<Album> getAlbums() {
         return albums;
     }
@@ -90,7 +98,7 @@ public class Singer implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "singer_instrument", joinColumns = @JoinColumn(name = "SINGER_ID"),
-        inverseJoinColumns = @JoinColumn(name = "INSTRUMENT_ID"))
+            inverseJoinColumns = @JoinColumn(name = "INSTRUMENT_ID"))
     public Set<Instrument> getInstruments() {
         return instruments;
     }
@@ -101,6 +109,18 @@ public class Singer implements Serializable {
 
     public void removeAlbum(Album album) {
         getAlbums().remove(album);
+    }
+
+    public boolean addAlbum(Album album) {
+        if (albums == null) {
+            albums = new HashSet<>();
+        } else {
+            if (albums.contains(album)) {
+                return false;
+            }
+        }
+        albums.add(album);
+        return true;
     }
 
     @Override

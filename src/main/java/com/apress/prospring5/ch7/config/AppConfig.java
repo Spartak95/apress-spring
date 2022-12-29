@@ -29,8 +29,9 @@ public class AppConfig {
             EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
 
             return dbBuilder.setType(EmbeddedDatabaseType.H2)
-                .addScripts("classpath:sql/schema.sql", "classpath:sql/test-data.sql")
-                .build();
+                    .setName("testDB;MODE=MySQL")
+                    .addScripts("classpath:sql/schema.sql", "classpath:sql/test-data.sql")
+                    .build();
         } catch (Exception e) {
             logger.error("Embedded DataSource bean cannot be created!", e);
             return null;

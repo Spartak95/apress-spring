@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -19,20 +20,18 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = "com.apress.prospring5.ch8.service")
 @EnableTransactionManagement
-public class JpaConfig {
-    private static final Logger logger = LoggerFactory.getLogger(JpaConfig.class);
+@ComponentScan(basePackages = {"com.apress.prospring5.ch8"})
+@EnableJpaRepositories(basePackages = {"com.apress.prospring5.ch8"})
+public class DataJpaConfig {
+    private static final Logger logger = LoggerFactory.getLogger(DataJpaConfig.class);
 
     @Bean
     public DataSource dataSource() {
         try {
             EmbeddedDatabaseBuilder dbBuilder = new EmbeddedDatabaseBuilder();
-
             return dbBuilder.setType(EmbeddedDatabaseType.H2)
-                    .setName("testDB;MODE=MySQL")
-                    .addScripts("classpath:sql/schema.sql", "classpath:sql/test-data.sql")
-                    .build();
+                    .addScripts("classpath:sql/schema.sql", "classpath:sql/test-data.sql").build();
         } catch (Exception e) {
             logger.error("Embedded DataSource bean cannot bе created!", e);
             return null;
@@ -59,14 +58,13 @@ public class JpaConfig {
         hibernateProp.put("hibernate.max_fetch_depth", 3);
         hibernateProp.put("hibernate.jdbc.batch_size", 10);
         hibernateProp.put("hibernate.jdbc.fetch_size", 50);
-
         return hibernateProp;
     }
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setPackagesToScan("com.apress.prospring5.ch8.entities");
+        LocalContainerEntityManagerFactoryBean factoryBean =
+        new LocalContainerEntityManagerFactoryBean();factoryBean.setPackagesToScan("com.apress.prospring5.ch8.entities");
         factoryBean.setDataSource(dataSource());
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         factoryBean.setJpaProperties(hibernateProperties());

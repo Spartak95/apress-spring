@@ -1,7 +1,5 @@
 package com.apress.prospring5.ch8.entities;
 
-import com.apress.prospring5.ch7.entities.Singer;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
